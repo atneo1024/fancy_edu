@@ -2,6 +2,7 @@ package com.fancy.edu.eduService.controller;
 
 
 import com.fancy.edu.commonUtil.result.Result;
+import com.fancy.edu.eduService.entity.EduSubject;
 import com.fancy.edu.eduService.entity.vo.SubjectNestedVo;
 import com.fancy.edu.eduService.service.EduSubjectService;
 import io.swagger.annotations.ApiOperation;
@@ -28,6 +29,28 @@ public class EduSubjectController {
 
     @Autowired
     private EduSubjectService eduSubjectService;
+
+    /**
+     * 添加二级分类
+     */
+    @PostMapping("/addTwoLevel")
+    public Result addTwoLevel(@RequestBody EduSubject eduSubject){
+
+        boolean flage = eduSubjectService.saveTwoLevel(eduSubject);
+
+        return flage ? Result.ok() : Result.error();
+    }
+
+    /**
+     * 添加一级分类
+     */
+    @PostMapping("/addOneLevel")
+    public Result addOneLevel(@RequestBody EduSubject eduSubject){
+
+        boolean flage = eduSubjectService.saveOneLevel(eduSubject);
+
+        return flage ? Result.ok() : Result.error();
+    }
 
     /**
      * 通过上传 Excel 文件获取文件内容

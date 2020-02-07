@@ -192,6 +192,50 @@ public class EduSubjectServiceImpl extends ServiceImpl<EduSubjectMapper, EduSubj
     }
 
     /**
+     * 添加一级分类
+     * @param eduSubject
+     * @return
+     */
+    @Override
+    public boolean saveOneLevel(EduSubject eduSubject) {
+
+        // 判断一级分类是否存在
+        EduSubject existOneSubject = this.existOneSubject(eduSubject.getTitle());
+
+        if (ObjectUtils.isEmpty(existOneSubject)){
+            // 添加
+            eduSubject.setParentId("0");
+            int result = baseMapper.insert(eduSubject);
+
+            return result > 0;
+        }
+
+        return false;
+    }
+
+    /**
+     * 添加二级分类
+     * @param eduSubject
+     * @return
+     */
+    @Override
+    public boolean saveTwoLevel(EduSubject eduSubject) {
+
+        // 判断二级分类是否存在
+        EduSubject existTwoSubject = this.existTwoSubject(eduSubject.getTitle(), eduSubject.getParentId());
+
+        if (ObjectUtils.isEmpty(existTwoSubject)){
+            // 添加
+            int result = baseMapper.insert(eduSubject);
+
+            return result > 0;
+        }
+
+
+        return false;
+    }
+
+    /**
      * 判断二级分类是否存在
      * @param name
      * @param parentId

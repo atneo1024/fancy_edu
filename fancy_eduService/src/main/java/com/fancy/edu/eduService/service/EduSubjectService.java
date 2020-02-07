@@ -23,4 +23,18 @@ public interface EduSubjectService extends IService<EduSubject> {
     List<SubjectNestedVo> nestedList();
 
     boolean deleteSubjectById(String id);
+
+    /**
+     * 添加一级分类
+     * @param eduSubject
+     * @return
+     */
+    boolean saveOneLevel(EduSubject eduSubject);
+
+    /**
+     * 添加二级分类
+     * @param eduSubject
+     * @return
+     */
+    boolean saveTwoLevel(EduSubject eduSubject);
 }
