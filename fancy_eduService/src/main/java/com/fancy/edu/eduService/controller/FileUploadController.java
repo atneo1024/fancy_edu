@@ -22,8 +22,8 @@ public class FileUploadController {
     private OSSFileService ossFileService;
 
     @PostMapping("/uploadFile")
-    public Result uploadTeacherImg(@RequestParam("file") MultipartFile file) {
+    public Result uploadTeacherImg(@RequestParam("file") MultipartFile file,String host) {
 
-        return ossFileService.upload(file);
+        return ossFileService.upload(file,host);
     }
 }

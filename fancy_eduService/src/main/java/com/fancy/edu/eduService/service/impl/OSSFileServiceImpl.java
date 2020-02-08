@@ -5,6 +5,7 @@ import com.aliyun.oss.OSSClient;
 import com.fancy.edu.commonUtil.result.Result;
 import com.fancy.edu.eduService.handler.ConstantPropertiesUtil;
 import com.fancy.edu.eduService.service.OSSFileService;
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,12 +23,16 @@ public class OSSFileServiceImpl implements OSSFileService {
 
 
     @Override
-    public Result upload(MultipartFile file){
+    public Result upload(MultipartFile file,String host){
 
         String endpoint = ConstantPropertiesUtil.END_POINT;
         String accessKeyId = ConstantPropertiesUtil.ACCESS_KEY_ID;
         String accessKeySecret = ConstantPropertiesUtil.ACCESS_KEY_SECRET;
         String bucketName = ConstantPropertiesUtil.BUCKET_NAME;
+        // 封面
+        String cover_host = ConstantPropertiesUtil.COVER;
+        // 头像
+        String career_host = ConstantPropertiesUtil.CAREER;
 
         // 创建OSSClient实例。
         OSSClient ossClient = new OSSClient(endpoint, accessKeyId,accessKeySecret);
@@ -39,7 +44,10 @@ public class OSSFileServiceImpl implements OSSFileService {
         filename = string + filename;
         // 获取当前时间（按照时间分割文件夹）
         String filePath = new DateTime().toString("yyyy/MM/dd");
-        filename = filePath + "/" + filename;
+        // 上传头像  host 为空
+        String fileHost = StringUtils.isBlank(host) ? career_host : cover_host;
+
+        filename = filePath + "/" + fileHost + "/" + filename;
         try {
             InputStream inputStream = file.getInputStream();
             ossClient.putObject(bucketName, filename, inputStream);

@@ -13,5 +13,5 @@ public interface OSSFileService {
      * @param file
      * @return
      */
-    Result upload(MultipartFile file);
+    Result upload(MultipartFile file,String host);
 }

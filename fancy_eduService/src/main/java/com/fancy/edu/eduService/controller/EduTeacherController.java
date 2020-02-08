@@ -157,7 +157,7 @@ public class EduTeacherController {
      * 2、查询所有讲师信息
      * @return
      */
-    @GetMapping
+    @GetMapping("/getAllTeacher")
     public Result getAllTeacherInfo(){
 
 

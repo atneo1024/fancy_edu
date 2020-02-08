@@ -2,6 +2,7 @@ package com.fancy.edu.eduService.service;
 
 import com.fancy.edu.eduService.entity.EduCourse;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.fancy.edu.eduService.entity.vo.CourseInfoVo;
 
 /**
  * <p>
@@ -13,4 +14,17 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface EduCourseService extends IService<EduCourse> {
 
+    /**
+     * 添加课程信息
+     * @param courseInfoVo
+     * @return
+     */
+    String insertCourseInfo(CourseInfoVo courseInfoVo);
+
+    /**
+     * 根据ID 查询课程信息
+     * @param id
+     * @return
+     */
+    CourseInfoVo getCourseInfoById(String id);
 }

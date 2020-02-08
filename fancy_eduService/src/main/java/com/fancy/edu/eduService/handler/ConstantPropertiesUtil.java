@@ -19,18 +19,26 @@ public class ConstantPropertiesUtil implements InitializingBean {
 
     @Value("${aliyun.oss.file.keysecret}")
     private String keySecret;
-
-    @Value("${aliyun.oss.file.filehost}")
-    private String fileHost;
+    /**
+     * 存储 封面文件夹名字
+     */
+    @Value("${aliyun.oss.file.cover}")
+    private String cover;
 
     @Value("${aliyun.oss.file.bucketname}")
     private String bucketName;
+    /**
+     * 存储 头像文件夹名字
+     */
+    @Value("${aliyun.oss.file.career}")
+    private String career;
 
     public static String END_POINT;
     public static String ACCESS_KEY_ID;
     public static String ACCESS_KEY_SECRET;
     public static String BUCKET_NAME;
-    public static String FILE_HOST ;
+    public static String COVER;
+    public static String CAREER;
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -38,6 +46,7 @@ public class ConstantPropertiesUtil implements InitializingBean {
         ACCESS_KEY_ID = keyId;
         ACCESS_KEY_SECRET = keySecret;
         BUCKET_NAME = bucketName;
-        FILE_HOST = fileHost;
+        COVER = cover;
+        CAREER = career;
     }
 }
