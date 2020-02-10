@@ -3,6 +3,7 @@ package com.fancy.edu.eduService.controller;
 
 import com.fancy.edu.commonUtil.result.Result;
 import com.fancy.edu.eduService.entity.EduCourse;
+import com.fancy.edu.eduService.entity.vo.CourseDescVo;
 import com.fancy.edu.eduService.entity.vo.CourseInfoVo;
 import com.fancy.edu.eduService.service.EduCourseService;
 import org.apache.commons.lang3.StringUtils;
@@ -26,6 +27,33 @@ public class EduCourseController {
 
     @Autowired
     private EduCourseService eduCourseService;
+
+    /**
+     * 发布课程
+     * @param courseId
+     * @return
+     */
+    @GetMapping("/updateCourseStatus/{courseId}")
+    public Result updateCourseStatus(@PathVariable String courseId){
+        EduCourse eduCourse = new EduCourse();
+        eduCourse.setId(courseId);
+        eduCourse.setStatus("Normal");
+        boolean result = eduCourseService.updateById(eduCourse);
+        return result ? Result.ok() : Result.error();
+    }
+
+    /**
+     * 根据课程ID获取课程详情
+     * @param courseId
+     * @return
+     */
+    @GetMapping("/getAllCourseInfo/{courseId}")
+    public Result getAllCourseInfo(@PathVariable String courseId){
+
+        CourseDescVo courseDescVo = eduCourseService.getAllCourseInfo(courseId);
+
+        return Result.ok().data("courseInfo", courseDescVo);
+    }
 
     /**
      * 根据课程ID删除课程信息

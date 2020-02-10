@@ -2,4 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fancy.edu.eduService.mapper.EduCourseMapper">
 
+    <select id="getCourseDesc" resultType="com.fancy.edu.eduService.entity.vo.CourseDescVo">
+        SELECT
+            c.id,
+            c.title,
+            c.cover,
+            c.lesson_num AS lessonNum,
+            CONVERT ( c.price, DECIMAL ( 8, 2 ) ) AS price,
+            ecd.description,
+            et.`name` AS teacherName,
+            es1.title AS levelOne,
+            es2.title AS levelTwo
+        FROM
+            edu_course c
+            LEFT OUTER JOIN edu_course_description ecd ON c.id = ecd.id
+            LEFT OUTER JOIN edu_teacher et ON c.teacher_id = et.id
+            LEFT OUTER JOIN edu_subject es1 ON c.subject_parent_id = es1.id
+            LEFT OUTER JOIN edu_subject es2 ON c.subject_id = es2.id
+        WHERE
+            c.id = #{courseId}
+    </select>
 </mapper>

@@ -2,6 +2,7 @@ package com.fancy.edu.eduService.service;
 
 import com.fancy.edu.eduService.entity.EduCourse;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.fancy.edu.eduService.entity.vo.CourseDescVo;
 import com.fancy.edu.eduService.entity.vo.CourseInfoVo;
 
 /**
@@ -41,4 +42,11 @@ public interface EduCourseService extends IService<EduCourse> {
      * @return
      */
     boolean removeCourseById(String id);
+
+    /**
+     * 根据课程ID查询课程详情
+     * @param courseId
+     * @return
+     */
+    CourseDescVo getAllCourseInfo(String courseId);
 }

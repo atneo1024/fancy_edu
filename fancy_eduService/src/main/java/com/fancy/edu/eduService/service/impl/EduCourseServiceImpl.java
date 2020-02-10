@@ -3,6 +3,7 @@ package com.fancy.edu.eduService.service.impl;
 import com.fancy.edu.eduService.entity.EduCourse;
 import com.fancy.edu.eduService.entity.EduCourseDescription;
 import com.fancy.edu.eduService.entity.EduVideo;
+import com.fancy.edu.eduService.entity.vo.CourseDescVo;
 import com.fancy.edu.eduService.entity.vo.CourseInfoVo;
 import com.fancy.edu.eduService.handler.ServiceException;
 import com.fancy.edu.eduService.mapper.EduCourseMapper;
@@ -147,5 +148,18 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
 
 
         return result > 0;
+    }
+
+    /**
+     * 根据课程ID查询课程详情
+     * @param courseId
+     * @return
+     */
+    @Override
+    public CourseDescVo getAllCourseInfo(String courseId) {
+
+        CourseDescVo courseDesc = baseMapper.getCourseDesc(courseId);
+
+        return courseDesc;
     }
 }
