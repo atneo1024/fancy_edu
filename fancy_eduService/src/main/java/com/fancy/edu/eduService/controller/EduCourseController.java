@@ -27,7 +27,11 @@ public class EduCourseController {
     @Autowired
     private EduCourseService eduCourseService;
 
-
+    /**
+     * 根据课程ID删除课程信息
+     * @param id
+     * @return
+     */
     @DeleteMapping("/deleteCourse/{id}")
     public Result deleteCourse(@PathVariable String id){
 

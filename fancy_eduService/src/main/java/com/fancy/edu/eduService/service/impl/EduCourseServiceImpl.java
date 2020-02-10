@@ -2,12 +2,15 @@ package com.fancy.edu.eduService.service.impl;
 
 import com.fancy.edu.eduService.entity.EduCourse;
 import com.fancy.edu.eduService.entity.EduCourseDescription;
+import com.fancy.edu.eduService.entity.EduVideo;
 import com.fancy.edu.eduService.entity.vo.CourseInfoVo;
 import com.fancy.edu.eduService.handler.ServiceException;
 import com.fancy.edu.eduService.mapper.EduCourseMapper;
+import com.fancy.edu.eduService.service.EduChapterService;
 import com.fancy.edu.eduService.service.EduCourseDescriptionService;
 import com.fancy.edu.eduService.service.EduCourseService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.fancy.edu.eduService.service.EduVideoService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +34,18 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
 
     @Autowired
     private EduCourseDescriptionService eduCourseDescriptionService;
+
+    /**
+     * 课程章节
+     */
+    @Autowired
+    private EduChapterService eduChapterService;
+
+    /**
+     * 课程小节
+     */
+    @Autowired
+    private EduVideoService eduVideoService;
 
     /**
      * 添加课程信息
@@ -115,8 +130,22 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
      * @return
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public boolean removeCourseById(String id) {
 
-        return false;
+        // 1、根据课程ID删除章节
+        eduChapterService.deleteChapterByCourseId(id);
+
+        // 2、根据课程ID删除小节
+        eduVideoService.deleteVideoByCourseId(id);
+
+        // 3、根据课程ID删除描述
+        eduCourseDescriptionService.deleteDescByCourseId(id);
+
+        // 4、根据课程ID删除课程信息
+        int result = baseMapper.deleteById(id);
+
+
+        return result > 0;
     }
 }
