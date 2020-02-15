@@ -59,7 +59,7 @@ public class EduVideoController {
 
         EduVideo byId = eduVideoService.getById(videoId);
 
-        return Result.ok().data("video", byId);
+        return Result.ok().data("videoService", byId);
     }
 
     /**

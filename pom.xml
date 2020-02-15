@@ -6,6 +6,7 @@
         <module>fancy_eduService</module>
         <module>fancy_commonUtil</module>
         <module>fancy_common</module>
+        <module>fancy_videoService</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
